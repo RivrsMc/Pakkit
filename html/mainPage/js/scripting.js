@@ -1,6 +1,6 @@
 let sharedVars
 
-exports.updateScript = function (fromCheckbox) {
+export function updateScript(fromCheckbox) {
   if (!((fromCheckbox === true) || document.getElementById('enableScripting').checked)) return
   sharedVars.ipcRenderer.send('scriptStateChange', JSON.stringify({ //
     scriptingEnabled: document.getElementById('enableScripting').checked,
@@ -8,7 +8,7 @@ exports.updateScript = function (fromCheckbox) {
   }))
 }
 
-exports.setup = function (passedSharedVars) {
+export function setup(passedSharedVars) {
   sharedVars = passedSharedVars
 
   const defaultScript = `// See the node-minecraft-protocol docs
@@ -46,5 +46,5 @@ exports.downstreamHandler = function (meta, data, server, client) {
   })
   resetScriptEditor()
 
-  window.scriptEditor.on('change', exports.updateScript)
+  window.scriptEditor.on('change', updateScript)
 }

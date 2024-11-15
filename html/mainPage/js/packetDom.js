@@ -1,8 +1,8 @@
+import filteringLogic from "./filteringLogic.js";
+
 let tree
 let treeElement
 let sharedVars
-
-const filteringLogic = require('./filteringLogic.js')
 
 function trimData (data) { // Function to trim the size of stringified data for previews
   if (data === undefined) {
@@ -41,7 +41,7 @@ function formatTime (ms) {
   return new Date(new Date(ms).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[1].replace(/[0-9]Z$/, '');
 }
 
-exports.addPacketToDOM = function (packet) {
+export function addPacketToDOM(packet) {
   const isHidden = filteringLogic.packetFilteredByFilterBox(packet, sharedVars.lastFilter, sharedVars.hiddenPackets,
     // TODO: cache these?
     sharedVars.settings.getSetting('inverseFiltering'), sharedVars.settings.getSetting('regexFilter'),
@@ -91,7 +91,7 @@ function updateHidden () {
   }
 }
 
-exports.setup = function (passedSharedVars) {
+export function setup(passedSharedVars) {
   sharedVars = passedSharedVars
 
   treeElement = document.getElementById('tree')
@@ -100,18 +100,18 @@ exports.setup = function (passedSharedVars) {
   treeElement.firstElementChild.innerHTML = 'No packet selected!'
 }
 
-exports.addPacket = function (data) {
+export function addPacket(data) {
   sharedVars.allPackets.push(data)
   data.uid = sharedVars.allPackets.length - 1
-  exports.addPacketToDOM(data)
+  addPacketToDOM(data)
 }
 
 // TODO: use shared var
 
-exports.getTreeElement = function () {
+export function getTreeElement() {
   return treeElement
 }
 
-exports.getTree = function () {
+export function getTree() {
   return tree
 }

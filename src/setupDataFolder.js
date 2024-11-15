@@ -1,5 +1,5 @@
-const fs = require('fs')
-const md5File = require('md5-file')
+import fs from "fs";
+import md5File from "md5-file";
 
 function copyIfNotMatches (src, dest) {
   if (!fs.existsSync(dest)) {
@@ -18,7 +18,7 @@ function copyIfNotMatches (src, dest) {
   }
 }
 
-exports.setup = function (osDataFolder, resourcesPath) {
+export function setup(osDataFolder, resourcesPath) {
   const dataFolder = osDataFolder + '/pakkit'
   if (!fs.existsSync(dataFolder)) {
     fs.mkdirSync(dataFolder)

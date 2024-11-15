@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "A packet monitor for Minecraft Java and Minecraft Bedrock",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -34,35 +35,35 @@
     }
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.61",
-    "@electron-forge/maker-deb": "^6.0.0-beta.61",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
-    "@electron-forge/maker-zip": "^6.0.0-beta.61",
-    "electron": "^16.0.5",
-    "electron-rebuild": "^2.3.4"
+    "@electron-forge/cli": "^7.5.0",
+    "@electron-forge/maker-deb": "^7.5.0",
+    "@electron-forge/maker-rpm": "^7.5.0",
+    "@electron-forge/maker-squirrel": "^7.5.0",
+    "@electron-forge/maker-zip": "^7.5.0",
+    "electron": "^33.2.0",
+    "electron-rebuild": "^3.2.9"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "clusterize.js": "^0.18.1",
-    "commander": "^7.1.0",
+    "axios": "^1.7.7",
+    "clusterize.js": "^1.0.0",
+    "commander": "^12.1.0",
     "electron-localshortcut": "^3.2.1",
-    "electron-squirrel-startup": "^1.0.0",
-    "electron-store": "^8.0.1",
-    "electron-unhandled": "^3.0.2",
+    "electron-squirrel-startup": "^1.0.1",
+    "electron-store": "^10.0.0",
+    "electron-unhandled": "^5.0.0",
     "electron-window-state": "^5.0.3",
     "escape-html": "^1.0.3",
     "md5-file": "^5.0.0",
-    "minecraft-data": "^3.36.1",
-    "minecraft-folder-path": "^1.1.0",
-    "minecraft-protocol": "^1.43.0",
+    "minecraft-data": "^3.78.0",
+    "minecraft-folder-path": "^1.2.0",
+    "minecraft-protocol": "^1.50.0",
     "node-eval": "^2.0.0",
-    "patch-package": "^6.4.7",
-    "source-map-support": "^0.5.19",
-    "ws": "^7.4.6"
+    "patch-package": "^8.0.0",
+    "source-map-support": "^0.5.21",
+    "ws": "^8.18.0"
   },
   "optionalDependencies": {
-    "bufferutil": "^4.0.2",
-    "utf-8-validate": "^5.0.3"
+    "bufferutil": "^4.0.8",
+    "utf-8-validate": "^6.0.5"
   }
 }

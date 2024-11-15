@@ -1,12 +1,24 @@
 /* global Split, jsonTree, escapeHtml, alert, CodeMirror */
 
-const Store = require('electron-store');
+import js from "./js/settings.js";
 
-const axios = require('axios')
+import js0 from "./js/ipcHandler.js";
 
-const Clusterize = require('clusterize.js')
-const filteringLogic = require('./js/filteringLogic.js')
+import js01 from "./js/packetDom.js";
 
+import js012 from "./js/scripting.js";
+
+import defaultsJson from "./js/defaults.json";
+
+import {ipcRenderer as ipcRenderer0} from "electron";
+
+import filteringLogic from "./js/filteringLogic.js";
+
+import Clusterize from "clusterize.js";
+
+import axios from "axios";
+
+import Store from "electron-store";
 // const escapeHtml = require('escape-html'); Already defined in my customised version of jsonTree (I just added HTML escaping)
 
 let currentPacket
@@ -109,7 +121,7 @@ const sharedVars = {
   allPackets: [],
   allPacketsHTML: [],
   proxyCapabilities: {},
-  ipcRenderer: require('electron').ipcRenderer,
+  ipcRenderer: ipcRenderer0.ipcRenderer,
   packetList: document.getElementById('packetlist'),
   hiddenPackets: undefined,
   scripting: undefined,
@@ -142,8 +154,6 @@ function setVersionSpecificVar(name, value) {
   settingsObject[name] = JSON.stringify(value)
   sharedVars.store.set(versionId, settingsObject)
 }
-
-const defaultsJson = require('./js/defaults.json')
 
 function findDefault(setting) {
   const versionId = sharedVars.proxyCapabilities.versionId
@@ -194,13 +204,13 @@ Split(['#packets', '#sidebar'], {
   minSize: [50, 75]
 })
 
-sharedVars.scripting = require('./js/scripting.js')
+sharedVars.scripting = js012
 sharedVars.scripting.setup(sharedVars)
-sharedVars.packetDom = require('./js/packetDom.js')
+sharedVars.packetDom = js01
 sharedVars.packetDom.setup(sharedVars)
-sharedVars.ipcHandler = require('./js/ipcHandler.js')
+sharedVars.ipcHandler = js0
 sharedVars.ipcHandler.setup(sharedVars)
-sharedVars.settings = require('./js/settings.js')
+sharedVars.settings = js
 sharedVars.settings.bindToSettingChange('showTimes', (newValue) => {
   if (newValue) {
     document.body.classList.remove('timeNotShown')

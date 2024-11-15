@@ -1,6 +1,6 @@
 let sharedVars
 
-exports.setup = function (passedSharedVars) {
+export function setup(passedSharedVars) {
   sharedVars = passedSharedVars
 
   sharedVars.ipcRenderer.on('copyPacketData', (event, arg) => {

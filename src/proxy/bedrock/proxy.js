@@ -1,7 +1,6 @@
-const { spawn } = require('child_process')
-const WebSocket = require('ws')
-const net = require('net')
-
+import {spawn} from "child_process";
+import WebSocket from "ws";
+import net from "net";
 // const java = require('java')
 
 /* java.asyncOptions = {
@@ -27,7 +26,7 @@ let scriptingEnabled = false
 
 // This whole thing is messy for now.
 
-exports.capabilities = {
+export const capabilities = {
   modifyPackets: true,
   jsonData: true,
   rawData: true,
@@ -36,7 +35,7 @@ exports.capabilities = {
   serverboundPackets: {},
   wikiVgPage: 'https://wiki.vg/Bedrock_Protocol',
   versionId: 'bedrock-proxypass-json'
-}
+};
 
 let host
 let port
@@ -155,8 +154,8 @@ function handleEvent (event) {
         const idString = '0x' + Number(index).toString(16).padStart(2, '0')
         const name = packetTypes[index].toLowerCase()
         // There isn't much of a distinction between serverbound and clientbound in Bedrock and many packets can be sent both ways
-        exports.capabilities.clientboundPackets[idString] = name
-        exports.capabilities.serverboundPackets[idString] = name
+        capabilities.clientboundPackets[idString] = name
+        capabilities.serverboundPackets[idString] = name
       }
       updateFilteringCallback()
       break;
@@ -185,20 +184,20 @@ function handleError (chunk) {
   }
 }
 
-exports.startProxy = function (passedHost, passedPort, passedListenPort, version, onlineMode, authConsent, passedPacketCallback,
-                               passedMessageCallback, passedDataFolder, passedUpdateFilteringCallback, authCodeCallback) {
-  host = passedHost
-  port = passedPort
-  listenPort = passedListenPort
-  packetCallback = passedPacketCallback
-  messageCallback = passedMessageCallback
-  dataFolder = passedDataFolder
-  updateFilteringCallback = passedUpdateFilteringCallback
+export function startProxy(passedHost, passedPort, passedListenPort, version, onlineMode, authConsent, passedPacketCallback,
+                           passedMessageCallback, passedDataFolder, passedUpdateFilteringCallback, authCodeCallback) {
+host = passedHost
+port = passedPort
+listenPort = passedListenPort
+packetCallback = passedPacketCallback
+messageCallback = passedMessageCallback
+dataFolder = passedDataFolder
+updateFilteringCallback = passedUpdateFilteringCallback
 
-  launch()
+launch()
 }
 
-exports.end = function () {
+export function end() {
   child.kill()
 }
 
@@ -209,7 +208,7 @@ function relaunch () {
   child.kill()
 }
 
-exports.writeToClient = function (meta, data) {
+export function writeToClient(meta, data) {
   ws.send(JSON.stringify({
     type: 'inject',
     className: meta.className,
@@ -219,7 +218,7 @@ exports.writeToClient = function (meta, data) {
   // proxyPlayerSession.injectPacketStaticPromise(JSON.stringify(data), meta.className, 'client')
 }
 
-exports.writeToServer = function (meta, data) {
+export function writeToServer(meta, data) {
   // proxyPlayerSession.injectPacketStaticPromise(JSON.stringify(data), meta.className, 'server')
   ws.send(JSON.stringify({
     type: 'inject',

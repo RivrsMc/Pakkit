@@ -1,5 +1,7 @@
 /* global alert */
 
+import escapeHtml from "escape-html";
+
 /**
  * JSON Tree library (a part of jsonTreeViewer)
  * http://github.com/summerstyle/jsonTreeViewer
@@ -94,8 +96,6 @@ function compactView(json) {
   }
   return out.trim()
 }
-
-const escapeHtml = require('escape-html')
 
 // window. stops standardjs from complaining
 window.jsonTree = (function () {

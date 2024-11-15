@@ -1,4 +1,25 @@
-const { program } = require('commander');
+import {program} from "commander";
+
+import {app, BrowserWindow, clipboard, dialog, ipcMain, Menu, shell} from "electron";
+
+import fs from "fs";
+
+import Store from "electron-store";
+
+ // npm start
+import * as javaProxy from "./proxy/java/proxy.js";
+
+import * as bedrockProxy from "./proxy/bedrock/proxy.js";
+
+import * as packetHandler from "./packetHandler.js";
+
+import * as setupDataFolder from "./setupDataFolder.js";
+
+import * as electronLocalShortcut from "electron-localshortcut";
+
+import * as windowStateKeeper from "electron-window-state";
+
+import * as unhandled from "electron-unhandled";
 
 program
   .option('-a, --autostart', 'Automatically starts the program without the start window (all below options must be set)')
@@ -18,29 +39,14 @@ if (options.autostart) {
     }
 }
 
-const {app, BrowserWindow, ipcMain, clipboard, Menu, dialog, shell } = require('electron')
+
 app.allowRendererProcessReuse = true
-
-const fs = require('fs')
-const Store = require('electron-store')
-
 const store = new Store()
 
 let proxy // Defined later when an option is chosen
 const resourcesPath = fs.existsSync(process.resourcesPath.concat('/app/'))
   ? process.resourcesPath.concat('/app/') // Packaged with electron-forge
-  : './' // npm start
-
-
-const javaProxy = require('./proxy/java/proxy.js')
-const bedrockProxy = require('./proxy/bedrock/proxy.js')
-const packetHandler = require('./packetHandler.js')
-const setupDataFolder = require('./setupDataFolder.js')
-
-const electronLocalShortcut = require('electron-localshortcut')
-const windowStateKeeper = require('electron-window-state')
-const unhandled = require('electron-unhandled')
-
+  : './'
 const osDataFolder = app.getPath('appData')
 
 const dataFolder = setupDataFolder.setup(osDataFolder, resourcesPath)
@@ -154,15 +160,6 @@ function createWindow() {
     win.webContents.setWindowOpenHandler(function(details) {
         shell.openExternal(details.url)
         return { action: 'deny' }
-    })
-
-    unhandled({
-        logger: (err) => {
-            win.send('error', JSON.stringify({msg: err.message, stack: err.stack}))
-            console.log(err.stack)
-            console.error(err)
-        },
-        showDialog: false
     })
 
     win.setMenu(null)

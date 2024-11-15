@@ -1,5 +1,5 @@
-const {ipcRenderer} = require('electron')
-const Store = require('electron-store')
+import {ipcRenderer} from "electron";
+import Store from "electron-store";
 
 const store = new Store()
 

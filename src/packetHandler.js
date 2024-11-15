@@ -1,4 +1,4 @@
-const _eval = require('node-eval')
+import _eval from "node-eval";
 
 let mainWindow
 let ipcMain
@@ -19,7 +19,7 @@ const client = {
   }
 }
 
-exports.init = function (window, passedIpcMain, passedProxy) {
+export function init(window, passedIpcMain, passedProxy) {
   mainWindow = window
   ipcMain = passedIpcMain
   proxy = passedProxy
@@ -47,7 +47,7 @@ exports.init = function (window, passedIpcMain, passedProxy) {
   })
 }
 
-exports.packetHandler = function (direction, meta, data, id, raw, canUseScripting, packetValid) {
+export function packetHandler(direction, meta, data, id, raw, canUseScripting, packetValid) {
   try {
     mainWindow.send('packet', JSON.stringify({ meta: meta, data: data, direction: direction, hexIdString: id, raw: raw, time: Date.now(), packetValid: packetValid }))
     // TODO: Maybe write raw data?
@@ -63,6 +63,6 @@ exports.packetHandler = function (direction, meta, data, id, raw, canUseScriptin
   }
 }
 
-exports.messageHandler = function (header, info, fatal) {
+export function messageHandler(header, info, fatal) {
   mainWindow.send('message', JSON.stringify({ header: header, info: info, fatal: fatal }))
 }
